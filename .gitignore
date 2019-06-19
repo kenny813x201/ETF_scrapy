@@ -125,3 +125,5 @@ dmypy.json
 
 # Output
 output/
+
+.vscode/
