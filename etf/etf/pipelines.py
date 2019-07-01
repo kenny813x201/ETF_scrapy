@@ -4,19 +4,45 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
+import sqlite3
 import pymongo
 
 
-class EtfPipeline(object):
+class SqlitePipeline(object):
+
+    def __init__(self):
+        self.create_connection()
+        self.create_table()
+
+    def create_connection(self):
+        self.conn = sqlite3.connect("output/etf.db")
+        self.curr = self.conn.cursor()
+
+    def create_table(self):
+        self.curr.execute("""DROP TABLE IF EXISTS etf_db""")
+        self.curr.execute("""CREATE TABLE etf_db(
+                        ticker text,
+                        url text,
+                        fund_name text
+                        )""")
 
     def process_item(self, item, spider):
-        pass
+        self.store_db(item)
+        return item
+
+    def store_db(self, item):
+        self.curr.execute("""INSERT INTO etf_db VALUES (?,?,?)""", (
+            item['ticker'],
+            item['url'],
+            item['fund_name']
+        ))
+        self.conn.commit()
 
 
 class MongoPipeline(object):
     collection_name = 'etf_items'
 
-    def __init__ (self, mongo_uri, mongo_db):
+    def __init__(self, mongo_uri, mongo_db):
         self.mongo_uri = mongo_uri
         self.mongo_db = mongo_db
 
@@ -24,7 +50,7 @@ class MongoPipeline(object):
     def from_crawler(cls, crawler):
         return cls(
             mongo_uri=crawler.settings.get('MONGO_URI'),
-            mongo_db=crawler.settings.get('MONGO_DATABASE', 'item')
+            mongo_db=crawler.settings.get('MONGO_DATABASE', 'ETF')
         )
 
     def open_spider(self, spider):
