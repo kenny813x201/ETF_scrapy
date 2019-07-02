@@ -56,6 +56,8 @@ class MongoPipeline(object):
     def open_spider(self, spider):
         self.client = pymongo.MongoClient(self.mongo_uri)
         self.db = self.client[self.mongo_db]
+        if self.collection_name in self.db.list_collection_names():
+            self.db.drop_collection(self.collection_name)
 
     def close_spider(self, spider):
         self.client.close()

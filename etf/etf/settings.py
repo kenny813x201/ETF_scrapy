@@ -70,7 +70,7 @@ DOWNLOADER_MIDDLEWARES = {
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'etf.pipelines.SqlitePipeline': 300,
-    # 'etf.pipelines.MongoPipeline': 400,
+    'etf.pipelines.MongoPipeline': 400,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
