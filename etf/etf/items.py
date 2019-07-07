@@ -21,4 +21,13 @@ class EtfItem(scrapy.Item):
     mgmt_cost = scrapy.Field()
     performance_fees = scrapy.Field()
     inception_date = scrapy.Field()
+    price = scrapy.Field()
+    one_month = scrapy.Field()
+    three_month = scrapy.Field()
+    year_to_date = scrapy.Field()
+    one_year = scrapy.Field()
+    three_year_pa = scrapy.Field()
+    five_year_pa = scrapy.Field()
+    ten_year_pa = scrapy.Field()
+
     pass
