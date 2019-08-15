@@ -6,6 +6,7 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import sqlite3
 import pymongo
+from cloud.firebase import Firebase_connection
 
 
 class SqlitePipeline(object):
@@ -64,4 +65,19 @@ class MongoPipeline(object):
 
     def process_item(self, item, spider):
         self.db[self.collection_name].insert_one(dict(item))
+        return item
+
+
+class FirebasePipeline(object):
+
+    firebase_client = Firebase_connection()
+
+    def process_item(self, item, spider):
+
+        exists = self.firebase_client.check_doc_exist(item)
+        if exists:
+            self.firebase_client.update_doc(item)
+        else:
+            self.firebase_client.add_doc(item)
+
         return item

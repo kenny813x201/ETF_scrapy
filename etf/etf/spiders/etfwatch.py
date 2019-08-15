@@ -54,6 +54,41 @@ class etfWatchSpider(scrapy.Spider):
                 "./td[@class='performance'][8]/span/text()").extract_first().strip()
             ten_year_pa = row.xpath(
                 "./td[@class='performance'][9]/span/text()").extract_first().strip()
+            annual_yield = row.xpath(
+                "./td[@class='dividends'][1]/span/text()").extract_first().strip()
+            franking = row.xpath(
+                "./td[@class='dividends'][2]/span/text()").extract_first().strip()
+            last_dividend_ex_date = row.xpath(
+                "./td[@class='dividends'][3]/span/text()").extract_first().strip()
+            last_dividend_paid_date = row.xpath(
+                "./td[@class='dividends'][4]/span/text()").extract_first().strip()
+            last_dividend_amount = row.xpath(
+                "./td[@class='dividends'][5]/span/text()").extract_first().strip()
+            dividend_frequency = row.xpath(
+                "./td[@class='dividends'][6]/span/text()").extract_first().strip()
+            region = row.xpath(
+                "./td[@class='classification'][1]/span/text()").extract_first().strip()
+            industry = row.xpath(
+                "./td[@class='classification'][2]/span/text()").extract_first().strip()
+            focus = row.xpath(
+                "./td[@class='classification'][3]/span/text()").extract_first().strip()
+            currency_hedge = row.xpath(
+                "./td[@class='classification'][4]/span/text()").extract_first().strip()
+            benchmark = row.xpath(
+                "./td[@class='classification'][5]/span/text()").extract_first().strip()
+            investment_style = row.xpath(
+                "./td[@class='classification'][6]/span/text()").extract_first().strip()
+            nav_pre_tax = row.xpath(
+                "./td[@class='net-asset-value'][1]/span/text()").extract_first().strip()
+            nav_post_tax = row.xpath(
+                "./td[@class='net-asset-value'][2]/span/text()").extract_first().strip()
+            nav_premium_pre_tax = row.xpath(
+                "./td[@class='net-asset-value'][3]/span/text()").extract_first().strip()
+            nav_premium_post_tax = row.xpath(
+                "./td[@class='net-asset-value'][4]/span/text()").extract_first().strip()
+            nav_date = row.xpath(
+                "./td[@class='net-asset-value'][5]/span/text()").extract_first().strip()
+
 
             items['ticker'] = ticker
             items['url'] = url
@@ -73,6 +108,23 @@ class etfWatchSpider(scrapy.Spider):
             items['three_year_pa'] = three_year_pa
             items['five_year_pa'] = five_year_pa
             items['ten_year_pa'] = ten_year_pa
+            items['annual_yield'] = annual_yield
+            items['franking'] = franking
+            items['last_dividend_ex_date'] = last_dividend_ex_date
+            items['last_dividend_paid_date'] = last_dividend_paid_date
+            items['last_dividend_amount'] = last_dividend_amount
+            items['dividend_frequency'] = dividend_frequency
+            items['region'] = region
+            items['industry'] = industry
+            items['focus'] = focus
+            items['currency_hedge'] = currency_hedge
+            items['benchmark'] = benchmark
+            items['investment_style'] = investment_style
+            items['nav_pre_tax'] = nav_pre_tax
+            items['nav_post_tax'] = nav_post_tax
+            items['nav_premium_pre_tax'] = nav_premium_pre_tax
+            items['nav_premium_post_tax'] = nav_premium_post_tax
+            items['nav_date'] = nav_date
 
             yield items
 
