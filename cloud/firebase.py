@@ -6,7 +6,7 @@ from firebase_admin import firestore
 class Firebase_connection():
 
     cred = credentials.Certificate(
-        '../etf-au-firebase-adminsdk-3d0yf-9a9839e0c5.json')
+        'etf-au-firebase-adminsdk-3d0yf-9a9839e0c5.json')
     firebase_admin.initialize_app(cred)
     db = firestore.client()
     etf_ref = db.collection('etf')
