@@ -7,6 +7,7 @@
 import sqlite3
 import pymongo
 from cloud.firebase import Firebase_connection
+from cloud.dynamodb import DynamoDB_connection
 
 
 class SqlitePipeline(object):
@@ -79,5 +80,15 @@ class FirebasePipeline(object):
             self.firebase_client.update_doc(item)
         else:
             self.firebase_client.add_doc(item)
+
+        return item
+
+
+class DynamoDBPipeline(object):
+
+    dynamodb_client = DynamoDB_connection()
+
+    def process_item(self, item, spider):
+        self.dynamodb_client.add_doc(item)
 
         return item

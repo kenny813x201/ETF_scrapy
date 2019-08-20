@@ -71,7 +71,8 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     # 'etf.pipelines.SqlitePipeline': 300,
     # 'etf.pipelines.MongoPipeline': 400,
-    'etf.pipelines.FirebasePipeline': 500,
+    # 'etf.pipelines.FirebasePipeline': 500,
+    # 'etf.pipelines.DynamoDBPipeline': 600,
 
 }
 
