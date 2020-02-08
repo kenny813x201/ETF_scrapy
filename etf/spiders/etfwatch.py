@@ -1,4 +1,5 @@
 import scrapy
+from pathlib import Path
 from ..items import EtfItem
 
 
@@ -16,6 +17,8 @@ class etfWatchSpider(scrapy.Spider):
         items = EtfItem()
 
         content = response.body
+
+        Path("output").mkdir(parents=True, exist_ok=True)
         file_name = 'output/etf-watch.html'
         self.save_html(file_name, content)
 
@@ -88,7 +91,6 @@ class etfWatchSpider(scrapy.Spider):
                 "./td[@class='net-asset-value'][4]/span/text()").extract_first().strip()
             nav_date = row.xpath(
                 "./td[@class='net-asset-value'][5]/span/text()").extract_first().strip()
-
 
             items['ticker'] = ticker
             items['url'] = url
